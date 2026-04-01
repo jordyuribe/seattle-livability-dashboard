@@ -2,7 +2,7 @@
 
 [one sentence — what it is and what it does]
 
-![Dashboard Screenshot](assets/screenshot.png)
+![Dashboard Screenshot])
 <!-- you'll replace this with a real screenshot later -->
 
 ## Overview
