@@ -1,0 +1,52 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+header {
+    height: 56px; /*fixed height for the top bar*/
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 16 px;
+    border-bottom: 1px solid #e0e0e0;
+    flex-shrink: 0;
+}
+
+.header-spacer {
+    flex: 1;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 340px;
+    flex-shrink: 0;
+    border-right: 1px solid #e0e0e0;
+    overflow-y: auto;
+}
+
+.map-wrap {
+    flex: 1; /*fills space that isn't yet*/
+    position: relative;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+

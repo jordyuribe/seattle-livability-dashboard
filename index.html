@@ -2,10 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, intital-scale=1.0" />
-    <title>Seattle Urban Livablity Dashboard</title>
+    <meta name="viewport" content="width=device-width, intital-scale=1.0" /> <!--Allows for website to be seen in mobile-->
+    <title> Seattle Urban Livablity Dashboard </title>
+
+    <!-- Will be pre loading fonts here -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Pre loading the MapLibre CSS -->
+     <link href="https://unpkg.com/maplibre-gl@3.6.s/dist/maplibre-gl.css" rel="stylesheet"/>
+
+    <!-- My CSS -->
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-    
+    <header>
+        <div class="logo">Seattle Livabliity Dashboard </div>
+        <div class="header-spacer"></div>
+        <div class="live-badge">● LIVE</div>
+    </header>
+
+    <!--The main contents of the page which is the map and the sidebar-->
+    <div class="main">
+        <div class="sidebar">
+            <p>SIDEBAR COMING SOON</p>
+        </div>
+
+        <div class="map-wrap">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <!--Scripts for the map and other functionality-->
+    <!-- External Libraries -->
+    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+    <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+    <!-- JS — always last -->
+    <script type="module" src="main.js"></script>
+
+
+
 </body>
 </html>
