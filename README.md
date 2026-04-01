@@ -11,20 +11,22 @@
 
 ## Features
 
-- 
-- 
-- 
-- 
+- Real-time air quality monioring using PurpleAir sensor network.
+- Interactive choropleth map showing livability scores by Seattle neighborhood.
+- Noise, green space, and temoerpature data layers with toggle controls.
+- Weighted scoring algorithm combining environmental facotrs into 0-100 livability score
+- Live data updates via Supabase Realtime - map re-renders automatically when new data arrives.
+- Hover tooltips showing per-neighborhood breakdown metrics.
 
 ## Tech Stack
 
 | Layer | Technology |
 |---|---|
-| Map Rendering | |
-| Backend / Database | |
-| Data Sources | |
-| Geospatial Utilities | |
-| Frontend | |
+| Map Rendering | MapLibre GL JS |
+| Backend / Database | Supabase (Postgres + Realtime) |
+| Data Sources | PurpleAir API, Seattle Open Data, OpenSky Network |
+| Geospatial Utilities | Turf.js |
+| Frontend | HTML, CSS, Vanilla JS |
 
 ## Data Sources
 
