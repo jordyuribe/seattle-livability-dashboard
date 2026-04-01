@@ -2,13 +2,12 @@
 
 [one sentence — what it is and what it does]
 
-![Dashboard Screenshot])
+![Dashboard Screenshot]
 <!-- you'll replace this with a real screenshot later -->
 
 ## Overview
 
-[2-3 sentences. Pull from your project proposal — why does this exist, 
-what problem does it solve, what inspired it]
+ I am building a real time data dashboard that measures air quality, noise, and other urban livability factors (green spaces) in the Seattle Metro area that displays it on a map. In addition to these measurements, I will do some data analysis that takes all of these into account that will produce a geospatial map (choropleth) that measures areas in the Seattle Metro area on a scale to determine a score of livability/environmental sustainability based on these factors.
 
 ## Features
 
