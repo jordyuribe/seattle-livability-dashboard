@@ -1,4 +1,4 @@
-#Seattle Urban Livability Dashboard
+# Seattle Urban Livability Dashboard
 
 [one sentence — what it is and what it does]
 
