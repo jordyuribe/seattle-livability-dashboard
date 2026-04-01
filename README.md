@@ -54,4 +54,4 @@ those weights. Write this in your own words.]
 
 ---
 
-*Built by Jordy Uribe-Rivas · Seattle University MS Computer Science*
+*Built by Jordy Uribe-Rivas 
