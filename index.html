@@ -27,8 +27,134 @@
     <!--The main contents of the page which is the map and the sidebar-->
     <div class="main">
         <div class="sidebar">
-            <p>SIDEBAR COMING SOON</p>
+  <div class="sidebar-scroll">
+
+    <!-- SCORE CARD -->
+    <div class="score-card" id="scoreCard">
+      <div class="score-label">Overall Livability Score</div>
+      <div class="score-value" id="overallScore">--</div>
+      <div class="score-sublabel">Seattle Metro Average</div>
+      <div class="score-breakdown">
+        <div class="score-mini">
+          <div class="score-mini-val" id="aqiAvg">--</div>
+          <div class="score-mini-label">Air Quality</div>
         </div>
+        <div class="score-mini">
+          <div class="score-mini-val" id="noiseAvg">--</div>
+          <div class="score-mini-label">Noise</div>
+        </div>
+        <div class="score-mini">
+          <div class="score-mini-val" id="greenAvg">--</div>
+          <div class="score-mini-label">Green Space</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CURRENT CONDITIONS -->
+    <div class="panel-card">
+      <div class="panel-head">
+        <div class="panel-title">Current Conditions</div>
+      </div>
+      <div class="panel-body">
+        <div class="metric-grid">
+
+          <div class="metric-grid">
+
+  <div class="metric-card">
+    <div class="metric-top">
+      <div class="metric-label">Air Quality Index</div>
+      <div><span class="metric-value" id="aqiValue">--</span><span class="metric-unit"> AQI</span></div>
+    </div>
+    <div class="metric-bar-wrap">
+      <div class="metric-bar" id="aqiBar" style="width:0%;background:#d97706;"></div>
+    </div>
+    <div class="metric-range"><span>Good</span><span>Hazardous</span></div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-top">
+      <div class="metric-label">Noise Level</div>
+      <div><span class="metric-value" id="noiseValue">--</span><span class="metric-unit"> dB</span></div>
+    </div>
+    <div class="metric-bar-wrap">
+      <div class="metric-bar" id="noiseBar" style="width:0%;background:#dc2626;"></div>
+    </div>
+    <div class="metric-range"><span>Quiet</span><span>Loud</span></div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-top">
+      <div class="metric-label">Green Coverage</div>
+      <div><span class="metric-value" id="greenValue">--</span><span class="metric-unit">%</span></div>
+    </div>
+    <div class="metric-bar-wrap">
+      <div class="metric-bar" id="greenBar" style="width:0%;background:#15803d;"></div>
+    </div>
+    <div class="metric-range"><span>0%</span><span>100%</span></div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-top">
+      <div class="metric-label">Temperature</div>
+      <div><span class="metric-value" id="tempValue">--</span><span class="metric-unit">°F</span></div>
+    </div>
+    <div class="metric-bar-wrap">
+      <div class="metric-bar" id="tempBar" style="width:0%;background:#1d6fa4;"></div>
+    </div>
+    <div class="metric-range"><span>Cold</span><span>Hot</span></div>
+  </div>
+
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- LAYER TOGGLES -->
+    <div class="panel-card">
+      <div class="panel-head">
+        <div class="panel-title">Map Layers</div>
+      </div>
+      <div class="panel-body">
+        <div class="layer-list">
+          <div class="layer-item active" data-layer="livability">
+            <div class="layer-dot" style="background:#2a7d6f;"></div>
+            <div class="layer-name">Livability Score</div>
+            <div class="layer-toggle on"></div>
+          </div>
+          <div class="layer-item active" data-layer="airquality">
+            <div class="layer-dot" style="background:#d97706;"></div>
+            <div class="layer-name">Air Quality</div>
+            <div class="layer-toggle on"></div>
+          </div>
+          <div class="layer-item" data-layer="noise">
+            <div class="layer-dot" style="background:#dc2626;"></div>
+            <div class="layer-name">Noise Levels</div>
+            <div class="layer-toggle"></div>
+          </div>
+          <div class="layer-item" data-layer="greenspace">
+            <div class="layer-dot" style="background:#15803d;"></div>
+            <div class="layer-name">Green Spaces</div>
+            <div class="layer-toggle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALERTS -->
+    <div class="panel-card">
+      <div class="panel-head">
+        <div class="panel-title">Active Alerts</div>
+      </div>
+      <div class="panel-body">
+        <div id="alertsList">
+          <div class="no-alerts">No active alerts</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
 
         <div class="map-wrap">
             <div id="map"></div>

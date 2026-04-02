@@ -39,7 +39,7 @@ export function aggregateSensorsByNeighborhood(sensors, neighborhoodGeoJSON) {
       },
       geometry: {
         type: 'Point',
-        coordinates: [s.longitude, s.latitude] // GeoJSON uses lng/lat order
+        coordinates: [s.longitude, s.latitude]
       }
     }))
   };
@@ -51,18 +51,22 @@ export function aggregateSensorsByNeighborhood(sensors, neighborhoodGeoJSON) {
     // Spatial query — find all sensor points inside this neighborhood boundary
     const inside = turf.pointsWithinPolygon(sensorPoints, neighborhood);
 
-    // If no sensors found in this neighborhood store null
+    // Filter out clearly malfunctioning sensors
+    // PM2.5 above 200 is almost certainly bad data
+    const validReadings = inside.features.filter(f => f.properties.pm25 <= 200);
+
+    // If no valid sensors found in this neighborhood store null
     // null means missing data, not zero — important distinction
-    if (inside.features.length === 0) {
+    if (validReadings.length === 0) {
       results[name] = null;
       return;
     }
 
-    // Average the PM2.5 readings across all sensors in the neighborhood
+    // Average the PM2.5 readings across all valid sensors in the neighborhood
     // Averaging smooths out outliers from malfunctioning sensors
-    const avgPM25 = inside.features.reduce((sum, f) => {
+    const avgPM25 = validReadings.reduce((sum, f) => {
       return sum + f.properties.pm25;
-    }, 0) / inside.features.length;
+    }, 0) / validReadings.length;
 
     results[name] = avgPM25;
   });

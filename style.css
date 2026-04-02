@@ -17,7 +17,7 @@ header {
     display: flex;
     align-items: center;
     padding: 0 20px;
-    gap: 16 px;
+    gap: 16px;
     border-bottom: 1px solid #e0e0e0;
     flex-shrink: 0;
 }
@@ -48,5 +48,244 @@ header {
     width: 100%;
     height: 100%;
 }
+
+/* ── SIDEBAR SCROLL ── */
+.sidebar-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.sidebar-scroll::-webkit-scrollbar { width: 4px; }
+.sidebar-scroll::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 4px; }
+
+/* ── SCORE CARD ── */
+.score-card {
+  background: linear-gradient(135deg, #1a4a42 0%, #2a7d6f 100%);
+  border-radius: 10px;
+  padding: 16px;
+  color: white;
+}
+
+.score-label {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  opacity: 0.7;
+  margin-bottom: 4px;
+}
+
+.score-value {
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 1;
+  font-family: 'DM Mono', monospace;
+}
+
+.score-sublabel {
+  font-size: 11px;
+  opacity: 0.6;
+  margin-top: 2px;
+  margin-bottom: 12px;
+}
+
+.score-breakdown {
+  display: flex;
+  gap: 8px;
+}
+
+.score-mini {
+  flex: 1;
+  background: rgba(255,255,255,0.12);
+  border-radius: 6px;
+  padding: 8px;
+  text-align: center;
+}
+
+.score-mini-val {
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'DM Mono', monospace;
+}
+
+.score-mini-label {
+  font-size: 9px;
+  opacity: 0.65;
+  margin-top: 2px;
+}
+
+/* ── PANEL CARDS ── */
+.panel-card {
+  background: #ffffff;
+  border: 1px solid #e8e6e0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.panel-head {
+  padding: 10px 14px;
+  border-bottom: 1px solid #e8e6e0;
+}
+
+.panel-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a1a18;
+}
+
+.panel-body {
+  padding: 12px 14px;
+}
+
+/* ── METRIC CARDS — Progress bar style ── */
+.metric-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.metric-card {
+  background: var(--color-background-primary);
+  border: 0.5px solid #e8e6e0;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.metric-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  gap: 6px;
+}
+
+.metric-label {
+  font-size: 10px;
+  color: #6b6b65;
+}
+
+
+.metric-value {
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'DM Mono', monospace;
+  color: #1a1a18;
+  line-height: 1;
+}
+
+.metric-unit {
+  font-size: 9px;
+  color: #6b6b65;
+}
+
+.metric-bar-wrap {
+  height: 4px;
+  background: #e8e6e0;
+  border-radius: 2px;
+  margin-bottom: 4px;
+  overflow: hidden;
+}
+
+.metric-bar {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+.metric-range {
+  display: flex;
+  justify-content: space-between;
+  font-size: 8px;
+  color: #a0a09a;
+}
+
+/* ── LAYER TOGGLES ── */
+.layer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.layer-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: #f9f8f5;
+  border: 1px solid #e8e6e0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.layer-item.active {
+  background: #ffffff;
+  border-color: #2a7d6f;
+}
+
+.layer-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.layer-name {
+  font-size: 12px;
+  font-weight: 500;
+  flex: 1;
+  color: #1a1a18;
+}
+
+.layer-toggle {
+  width: 30px;
+  height: 16px;
+  border-radius: 8px;
+  background: #e0e0e0;
+  position: relative;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.layer-toggle.on { background: #2a7d6f; }
+
+.layer-toggle::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: white;
+  top: 2px;
+  left: 2px;
+  transition: left 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.layer-toggle.on::after { left: 16px; }
+
+/* ── ALERTS ── */
+.no-alerts {
+  font-size: 12px;
+  color: #a0a09a;
+  text-align: center;
+  padding: 8px 0;
+}
+
+.alert-item {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  font-size: 11px;
+  color: #92400e;
+  line-height: 1.4;
+}
+
+.alert-item strong { font-weight: 600; }
 
 
