@@ -84,10 +84,7 @@ async function refreshData() {
 
   // Step 5 — push updated scores to the map and sidebar
   updateChoropleth(map, scores);
-  updateSidebar(scores);
-
-  console.log('Noise by neighborhood:', noiseByNeighborhood);
-  
+  updateSidebar(scores);  
   
 }
 

@@ -27,6 +27,8 @@ export function updateSidebar(scores) {
   const avgAQI   = Math.round(valid.reduce((sum, s) => sum + s.aqi, 0) / valid.length);
   const avgScore = Math.round(valid.reduce((sum, s) => sum + s.score, 0) / valid.length);
   const avgGreen = Math.round(valid.reduce((sum, s) => sum + (s.greenPct || 0), 0) / valid.length);
+  const avgNoise = Math.round(valid.reduce((sum, s) => sum + (s.noiseDb || 55), 0) / valid.length);
+
 
   // Update overall score card
   document.getElementById('overallScore').textContent = avgScore;
@@ -44,7 +46,6 @@ export function updateSidebar(scores) {
   document.getElementById('greenBar').style.background = getBarColor('green', avgGreen);
 
   // update noise card with real average — assumes 40-90 dB range for scaling the bar
-  const avgNoise = Math.round(valid.reduce((sum, s) => sum + (s.noiseDb || 55), 0) / valid.length);
   document.getElementById('noiseValue').textContent = avgNoise;
   document.getElementById('noiseBar').style.width = Math.min(100, ((avgNoise - 40) / 50) * 100) + '%';
   document.getElementById('noiseBar').style.background = getBarColor('noise', avgNoise);
