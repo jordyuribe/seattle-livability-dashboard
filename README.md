@@ -44,8 +44,20 @@ I am building a real time data dashboard that measures air quality, noise, and o
 
 ## Livability Score Methodology
 
-[Explain how the score is computed — what metrics, what weights, why 
-those weights. Write this in your own words.]
+Pillar 1 — Environmental Burden (40%)
+Measures the degree to which a neighborhood is exposed to harmful environmental conditions. Inspired by the EPA's Environmental Justice Index (EJI), which scores US census tracts on cumulative environmental burden including air quality and noise exposure. Air quality is scored using EPA AQI breakpoints rather than a simple linear scale — crossing from 100 to 101 represents a meaningful health threshold, not just one point on a continuous scale. Noise is scored against WHO Environmental Noise Guidelines (2018), which identify 53 dB as the threshold above which outdoor noise begins affecting health, and 65 dB as associated with increased cardiovascular risk.
+
+Pillar 2 — Green Access (35%)
+Measures access to green space, which research consistently links to mental health, physical activity, and urban heat reduction. Scored using park coverage percentage within each neighborhood boundary. Future versions will incorporate distance decay — a park within walking distance weighted more heavily than one requiring transit — inspired by Walk Score's proximity methodology.
+
+Pillar 3 — Comfort (25%)
+Measures general environmental comfort including temperature. Scored against an ideal comfort range of 55-70°F, with penalties increasing as temperatures deviate from that range in either direction.
+
+Citations to include:
+U.S. Environmental Protection Agency. (2022). Environmental Justice Index (EJI). Retrieved from eji.cdc.gov
+World Health Organization. (2018). Environmental Noise Guidelines for the European Region. WHO Regional Office for Europe.
+U.S. Environmental Protection Agency. Air Quality Index (AQI) Basics. Retrieved from airnow.gov
+Walk Score. Walk Score Methodology. Retrieved from walkscore.com/methodology.shtml
 
 ## Future Improvements
 
