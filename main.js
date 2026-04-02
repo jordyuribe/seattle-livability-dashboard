@@ -5,10 +5,16 @@ import { pm25ToAQI, computeLivabilityScore } from './data/scoreEngine.js';
 import { updateSidebar } from './components/sidebar.js';
 import { fetchGreenSpace, aggregateParksByNeighborhood } from './data/fetchGreenSpaces.js';
 import { fetchNoise, aggregateNoiseByNeighborhood } from './data/fetchNoise.js';
+import { initLayerToggles } from './map/layers.js';
 
 
 const map = initMap();
 loadChoropleth(map);
+
+// Wait for map to load before initializing toggles
+map.on('load', () => {
+  initLayerToggles(map);
+});
 
 // Load neighborhood GeoJSON once — reused every refresh cycle
 const geoResponse = await fetch('./assets/seattle_neighborhoods.geojson');
