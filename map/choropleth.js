@@ -1,3 +1,6 @@
+import { initTooltip, showTooltip, hideTooltip } from '../components/tooltip.js';
+
+
 // Stores the GeoJSON in memory so we can update it without reloading
 let neighborhoodData = null;
 
@@ -52,6 +55,22 @@ export function loadChoropleth(map) {
         'line-color': '#ffffff',
         'line-width': 1.5
       }
+    });
+
+     // ── TOOLTIP ──
+    const tooltip = initTooltip();
+
+    // Show tooltip on hover
+    map.on('mousemove', 'neighborhood-fill', (e) => {
+      map.getCanvas().style.cursor = 'pointer';
+      const props = e.features[0].properties;
+      showTooltip(tooltip, e.point, props);
+    });
+
+    // Hide tooltip when leaving a neighborhood
+    map.on('mouseleave', 'neighborhood-fill', () => {
+      map.getCanvas().style.cursor = '';
+      hideTooltip(tooltip);
     });
 
   });
