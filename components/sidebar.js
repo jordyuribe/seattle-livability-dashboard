@@ -26,6 +26,7 @@ export function updateSidebar(scores) {
   // Compute Seattle-wide averages
   const avgAQI   = Math.round(valid.reduce((sum, s) => sum + s.aqi, 0) / valid.length);
   const avgScore = Math.round(valid.reduce((sum, s) => sum + s.score, 0) / valid.length);
+  const avgGreen = Math.round(valid.reduce((sum, s) => sum + (s.greenPct || 0), 0) / valid.length);
 
   // Update overall score card
   document.getElementById('overallScore').textContent = avgScore;
@@ -37,14 +38,15 @@ export function updateSidebar(scores) {
   document.getElementById('aqiBar').style.width = aqiPct + '%';
   document.getElementById('aqiBar').style.background = getBarColor('aqi', avgAQI);
 
+  // Update green space card with real average
+  document.getElementById('greenValue').textContent = avgGreen;
+  document.getElementById('greenBar').style.width = avgGreen + '%';
+  document.getElementById('greenBar').style.background = getBarColor('green', avgGreen);
+
   // Placeholder values until real APIs are wired in
     document.getElementById('noiseValue').textContent = 60;
     document.getElementById('noiseBar').style.width = '40%';
     document.getElementById('noiseBar').style.background = getBarColor('noise', 60);
-
-    document.getElementById('greenValue').textContent = 30;
-    document.getElementById('greenBar').style.width = '30%';
-    document.getElementById('greenBar').style.background = getBarColor('green', 30);
 
     document.getElementById('tempValue').textContent = 52;
     document.getElementById('tempBar').style.width = '35%';

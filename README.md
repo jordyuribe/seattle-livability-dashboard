@@ -33,14 +33,51 @@ I am building a real time data dashboard that measures air quality, noise, and o
 | Source | What it provides |
 |---|---|
 | [PurpleAir API](https://community.purpleair.com/t/about-the-purpleair-api/7145) | The air quality in Seattle |
-| [Seattle Open Data](https://data.seattle.gov) | The geojson of Seattle and green spaces |
+| [Seattle Open Data — Socrata](https://data.seattle.gov/resource/v5tj-kqhc.json) | The geojson of Seattle and green spaces |
 | [OpenSky Network](https://opensky-network.org/data/api) | Noise |
+
+## Data Pipeline
+
+Raw sensor data from PurpleAir is not pre-aggregated by neighborhood. Each API call returns individual sensor readings at specific lat/lng coordinates scattered across Seattle. To get one representative value per neighborhood we use **Turf.js point-in-polygon** — a spatial query that finds which sensors fall inside each neighborhood boundary polygon, then averages their readings.
+
+The same pattern applies to park data from Socrata — individual park locations are counted per neighborhood using the same point-in-polygon approach.
+
+### Why Socrata for parks?
+
+Seattle's open data portal publishes park boundary files in **State Plane Washington North** coordinate system (EPSG:2926), measured in feet rather than degrees. This is incompatible with the WGS84 lat/lng system that MapLibre and Turf.js expect.
+
+The Socrata API endpoint for park addresses returns coordinates in standard WGS84 lat/lng format, making it directly compatible with our spatial pipeline without any coordinate transformation required.
+
+### API Architecture
+
+All third-party API calls that require secret keys are routed through **Supabase Edge Functions** — server-side functions that run on Supabase's infrastructure. This keeps API keys off the client and avoids CORS restrictions. The PurpleAir key never touches the browser.
+
+The Seattle Open Data Socrata API requires no authentication and does not have CORS restrictions, so it is called directly from the browser.
 
 ## Running Locally
 
-1. 
-2. 
-3. 
+1. Clone the repo
+```bash
+   git clone https://github.com/jordyuribe/seattle-livability-dashboard.git
+   cd seattle-livability-dashboard
+```
+
+2. Create a `.env` file in the root with your API keys
+```
+   PURPLEAIR_API_KEY=your_key_here
+   SUPABASE_URL=your_supabase_url
+   SUPABASE_ANON_KEY=your_anon_key
+   SUPABASE_PROJECT_ID=your_project_id
+```
+
+3. Deploy the PurpleAir Edge Function to Supabase
+```bash
+   supabase link --project-ref your_project_id
+   supabase secrets set PURPLEAIR_API_KEY=your_key_here
+   supabase functions deploy fetch-air-quality
+```
+
+4. Open `index.html` with Live Server in VS Code
 
 ## Livability Score Methodology
 
