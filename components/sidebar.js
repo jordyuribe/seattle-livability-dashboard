@@ -43,18 +43,17 @@ export function updateSidebar(scores) {
   document.getElementById('greenBar').style.width = avgGreen + '%';
   document.getElementById('greenBar').style.background = getBarColor('green', avgGreen);
 
-  // Placeholder values until real APIs are wired in
-    document.getElementById('noiseValue').textContent = 60;
-    document.getElementById('noiseBar').style.width = '40%';
-    document.getElementById('noiseBar').style.background = getBarColor('noise', 60);
+  // update noise card with real average — assumes 40-90 dB range for scaling the bar
+  const avgNoise = Math.round(valid.reduce((sum, s) => sum + (s.noiseDb || 55), 0) / valid.length);
+  document.getElementById('noiseValue').textContent = avgNoise;
+  document.getElementById('noiseBar').style.width = Math.min(100, ((avgNoise - 40) / 50) * 100) + '%';
+  document.getElementById('noiseBar').style.background = getBarColor('noise', avgNoise);
+  document.getElementById('noiseAvg').textContent = avgNoise;
 
     document.getElementById('tempValue').textContent = 52;
     document.getElementById('tempBar').style.width = '35%';
     document.getElementById('tempBar').style.background = getBarColor('temp', 52);
 
-    // placeholder averages
-    document.getElementById('noiseAvg').textContent = 60;
-    document.getElementById('greenAvg').textContent = 30;
 
   // Update alerts
   updateAlerts(scores);

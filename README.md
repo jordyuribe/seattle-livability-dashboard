@@ -34,7 +34,7 @@ I am building a real time data dashboard that measures air quality, noise, and o
 |---|---|
 | [PurpleAir API](https://community.purpleair.com/t/about-the-purpleair-api/7145) | The air quality in Seattle |
 | [Seattle Open Data — Socrata](https://data.seattle.gov/resource/v5tj-kqhc.json) | The geojson of Seattle and green spaces |
-| [OpenSky Network](https://opensky-network.org/data/api) | Noise |
+| [Port of Seattle — PublicVue](https://secure.symphonycdm.com/publicvue/) | Real-time airport noise monitoring from SEA-TAC sensor network | PublicVue Portal — public access |
 
 ## Data Pipeline
 
@@ -86,6 +86,8 @@ Measures the degree to which a neighborhood is exposed to harmful environmental 
 
 Pillar 2 — Green Access (35%)
 Measures access to green space, which research consistently links to mental health, physical activity, and urban heat reduction. Scored using park coverage percentage within each neighborhood boundary. Future versions will incorporate distance decay — a park within walking distance weighted more heavily than one requiring transit — inspired by Walk Score's proximity methodology.
+
+- Green space is currently scored based on the number of parks within each neighborhood boundary rather than total park area, due to coordinate system limitations in the available boundary data. Future versions will incorporate true park coverage percentage using reprojected polygon data.
 
 Pillar 3 — Comfort (25%)
 Measures general environmental comfort including temperature. Scored against an ideal comfort range of 55-70°F, with penalties increasing as temperatures deviate from that range in either direction.

@@ -34,7 +34,7 @@ export function showTooltip(tooltip, point, props) {
     </div>
     <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px;">
       <span style="color:#6b6b65;">Noise Level</span>
-      <span style="font-weight:500;color:#1a1a18;">60 dB</span>
+      <span style="font-weight:500;color:#1a1a18;">${props.noise_db ? props.noise_db + ' dB' : '55 dB'}</span>
     </div>
     <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px;">
       <span style="color:#6b6b65;">Green Coverage</span>
