@@ -1,4 +1,5 @@
 import { initTooltip, showTooltip, hideTooltip } from '../components/tooltip.js';
+import { pm25ToAQI } from '../data/scoreEngine.js';
 
 
 // Stores the GeoJSON in memory so we can update it without reloading
@@ -57,6 +58,85 @@ export function loadChoropleth(map) {
       }
     });
 
+    // ── AIR QUALITY SENSOR LAYER ──
+    map.addSource('air-quality-points', {
+      type: 'geojson',
+      data: { type: 'FeatureCollection', features: [] }
+    });
+
+    map.addLayer({
+      id: 'air-quality-layer',
+      type: 'circle',
+      source: 'air-quality-points',
+      layout: { visibility: 'none' },
+      paint: {
+        'circle-radius': 6,
+        'circle-color': [
+          'interpolate', ['linear'], ['get', 'aqi'],
+          0,   '#15803d',
+          50,  '#fbbf24',
+          100, '#f97316',
+          150, '#dc2626'
+        ],
+        'circle-stroke-color': '#ffffff',
+        'circle-stroke-width': 1.5,
+        'circle-opacity': 0.9
+      }
+    });
+
+    // ── NOISE SENSOR LAYER ──
+    map.addSource('noise-points', {
+      type: 'geojson',
+      data: { type: 'FeatureCollection', features: [] }
+    });
+
+    map.addLayer({
+      id: 'noise-layer',
+      type: 'circle',
+      source: 'noise-points',
+      layout: { visibility: 'none' },
+      paint: {
+        'circle-radius': 8,
+        'circle-color': [
+          'interpolate', ['linear'], ['get', 'db'],
+          40, '#15803d',
+          53, '#fbbf24',
+          65, '#f97316',
+          75, '#dc2626'
+        ],
+        'circle-stroke-color': '#ffffff',
+        'circle-stroke-width': 1.5,
+        'circle-opacity': 0.9
+      }
+    });
+
+    // ── GREEN SPACE LAYER ── separate fill layer
+    map.addLayer({
+      id: 'green-space-layer',
+      type: 'fill',
+      source: 'neighborhoods',
+      layout: { visibility: 'none' },
+      paint: {
+        'fill-color': [
+          'case',
+          ['!', ['has', 'green_pct']],
+          '#cccccc',
+          ['==', ['get', 'green_pct'], null],
+          '#cccccc',
+          [
+            'interpolate', ['linear'],
+            ['get', 'green_pct'],
+            0,   '#f7fcf5',
+            25,  '#c7e9c0',
+            50,  '#74c476',
+            75,  '#238b45',
+            100, '#00441b'
+          ]
+        ],
+        'fill-opacity': 0.7
+      }
+    });
+
      // ── TOOLTIP ──
     const tooltip = initTooltip();
 
@@ -106,3 +186,42 @@ export function updateChoropleth(map, scores) {
   // Update the map source — MapLibre re-renders automatically
   map.getSource('neighborhoods').setData(updatedGeoJSON);
 }
+
+export function updateSensorLayers(map, sensors, noiseSensors) {
+
+  // Air quality sensor dots — colored by AQI
+  if (map.getSource('air-quality-points') && sensors) {
+    map.getSource('air-quality-points').setData({
+      type: 'FeatureCollection',
+      features: sensors
+        .filter(s => s['pm2.5_atm'] <= 200) // filter bad sensors
+        .map(s => ({
+          type: 'Feature',
+          properties: {
+            name: s.name,
+            aqi: pm25ToAQI(s['pm2.5_atm'])
+          },
+          geometry: {
+            type: 'Point',
+            coordinates: [s.longitude, s.latitude]
+          }
+        }))
+    });
+  }
+
+  // Noise sensor dots — colored by dB
+  if (map.getSource('noise-points') && noiseSensors) {
+    map.getSource('noise-points').setData({
+      type: 'FeatureCollection',
+      features: noiseSensors.map(s => ({
+        type: 'Feature',
+        properties: { name: s.name, db: s.db },
+        geometry: {
+          type: 'Point',
+          coordinates: [s.longitude, s.latitude]
+        }
+      }))
+    });
+  }
+}
+

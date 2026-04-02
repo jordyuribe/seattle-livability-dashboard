@@ -143,8 +143,8 @@ header {
 
 /* ── METRIC CARDS — Progress bar style ── */
 .metric-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
 }
 

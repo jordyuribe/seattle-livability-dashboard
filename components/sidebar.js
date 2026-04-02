@@ -33,6 +33,7 @@ export function updateSidebar(scores) {
   // Update overall score card
   document.getElementById('overallScore').textContent = avgScore;
   document.getElementById('aqiAvg').textContent = avgAQI;
+  document.getElementById('greenAvg').textContent = avgGreen;
 
   // Update AQI metric card
   const aqiPct = Math.min(100, (avgAQI / 300) * 100);

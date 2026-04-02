@@ -1,11 +1,11 @@
 import { initMap } from "./map/mapInit.js";
-import { loadChoropleth, updateChoropleth } from "./map/choropleth.js";
 import { fetchAirQuality, aggregateSensorsByNeighborhood } from './data/fetchAirQuality.js';
 import { pm25ToAQI, computeLivabilityScore } from './data/scoreEngine.js';
 import { updateSidebar } from './components/sidebar.js';
 import { fetchGreenSpace, aggregateParksByNeighborhood } from './data/fetchGreenSpaces.js';
 import { fetchNoise, aggregateNoiseByNeighborhood } from './data/fetchNoise.js';
 import { initLayerToggles } from './map/layers.js';
+import { loadChoropleth, updateChoropleth, updateSensorLayers } from './map/choropleth.js';
 
 
 const map = initMap();
@@ -90,7 +90,7 @@ async function refreshData() {
   // Step 5 — push updated scores to the map and sidebar
   updateChoropleth(map, scores);
   updateSidebar(scores);  
-
+  updateSensorLayers(map, sensors, noiseSensors);
 }
 
 // Run immediately on page load then refresh every 5 minutes
