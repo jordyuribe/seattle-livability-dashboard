@@ -69,18 +69,10 @@ function scoreGreenAccess(greenPCT) {
     return Math.round(clamped); // direct percentage score
 }
 
-// 3. Comfort (25%)
-function scoreComfort(tempF) {
-    const ideal = 62;
-    const diff = Math.abs(tempF - ideal);
-    return Math.round(Math.max(0, 100 - (diff * 3)));
-}
-
 // Main scoring
-export function computeLivabilityScore({ aqi, noiseDb, greenPct, tempF}) {
-    const enviroScore = scoreEnvionmental(aqi, noiseDb);
-    const green = scoreGreenAccess(greenPct);
-    const comfort = scoreComfort(tempF);
+export function computeLivabilityScore({ aqi, noiseDb, greenPct }) {
+  const enviroScore = scoreEnvionmental(aqi, noiseDb);
+  const green = scoreGreenAccess(greenPct);
 
-    return Math.round((enviroScore * 0.40) + (green * 0.35) + (comfort * 0.25));
+  return Math.round((enviroScore * 0.55) + (green * 0.45));
 }

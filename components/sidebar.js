@@ -51,11 +51,6 @@ export function updateSidebar(scores) {
   document.getElementById('noiseBar').style.background = getBarColor('noise', avgNoise);
   document.getElementById('noiseAvg').textContent = avgNoise;
 
-    document.getElementById('tempValue').textContent = 52;
-    document.getElementById('tempBar').style.width = '35%';
-    document.getElementById('tempBar').style.background = getBarColor('temp', 52);
-
-
   // Update alerts
   updateAlerts(scores);
 }

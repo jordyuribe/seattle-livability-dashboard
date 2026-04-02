@@ -74,8 +74,7 @@ async function refreshData() {
     const score = computeLivabilityScore({
       aqi,
       noiseDb,  // placeholder — replace when noise API is connected
-      greenPct,     // real data from Seattle Open Data
-      tempF: 52     // Seattle annual average temperature
+      greenPct     // real data from Seattle Open Data
     });
 
     // Store all values so sidebar and tooltip can display them
@@ -91,7 +90,7 @@ async function refreshData() {
   // Step 5 — push updated scores to the map and sidebar
   updateChoropleth(map, scores);
   updateSidebar(scores);  
-  
+
 }
 
 // Run immediately on page load then refresh every 5 minutes

@@ -48,13 +48,13 @@ export function aggregateParksByNeighborhood(parksGeoJSON, neighborhoodGeoJSON) 
     const inside = turf.pointsWithinPolygon(parksGeoJSON, neighborhood);
     const count = inside.features.length;
 
-    // Convert park count to 0-100 score
     let greenScore;
-    if (count === 0)       greenScore = 0;
-    else if (count <= 2)   greenScore = 25;
-    else if (count <= 5)   greenScore = 50;
-    else if (count <= 10)  greenScore = 75;
-    else                   greenScore = 100;
+    if (count === 0)      greenScore = 20;  // no parks — not zero, just low
+    else if (count === 1) greenScore = 45;  // at least one park
+    else if (count <= 3)  greenScore = 60;  // a few parks
+    else if (count <= 6)  greenScore = 75;  // good coverage
+    else if (count <= 10) greenScore = 88;  // great coverage
+    else                  greenScore = 100; // exceptional
 
     results[name] = { count, greenScore };
   });
