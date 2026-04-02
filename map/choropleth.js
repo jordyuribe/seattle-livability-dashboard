@@ -95,7 +95,8 @@ export function updateChoropleth(map, scores) {
         properties: {
           ...feature.properties,
           livability_score: data ? data.score : null,
-          aqi: data ? data.aqi : null
+          aqi: data ? data.aqi : null,
+          green_pct: data ? data.greenPct : null
         }
       };
     })
@@ -103,4 +104,6 @@ export function updateChoropleth(map, scores) {
 
   // Update the map source — MapLibre re-renders automatically
   map.getSource('neighborhoods').setData(updatedGeoJSON);
+  console.log('Sample feature props:', updatedGeoJSON.features[0].properties);
+
 }
