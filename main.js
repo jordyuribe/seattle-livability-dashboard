@@ -1,5 +1,5 @@
 import { initMap } from "./map/mapInit.js";
-import { loadChoropleth } from "./map/choropleth.js";
+import { loadChoropleth, updateChoropleth } from "./map/choropleth.js";
 import { fetchAirQuality, aggregateSensorsByNeighborhood } from './data/fetchAirQuality.js';
 import { pm25ToAQI, computeLivabilityScore } from './data/scoreEngine.js';
 
@@ -48,7 +48,7 @@ async function refreshData() {
     scores[name] = { aqi, score };
   });
 
-  console.log('Scores:', scores);
+  updateChoropleth(map, scores);
 }
 
 // Run immediately then every 5 minutes
