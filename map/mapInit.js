@@ -1,24 +1,27 @@
-export function initMap() { // export allows for other files to use this
-    const map = new maplibregl.Map({ // creates the new maLibre instance
-        container: 'map', // renders map into the map portion in html
-        style: {
-            version: 8,
-            sources: { // where the mpa is coming from
-                'osm': {
-                    type: 'raster',
-                    tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
-                    tileSize: 256,
-                    attribution: '© OpenStreetMap contributors'
-                }
-            },
-            layers: [{ // how the data wil be dispalyed
-                id: 'osm-tiles',
-                type: 'raster',
-                source: 'osm'
-            }]
+export function initMap() {
+  const map = new maplibregl.Map({
+    container: 'map',
+    style: {
+      version: 8,
+      sources: {
+        'carto-base': {
+          type: 'raster',
+          tiles: ['https://basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png'],
+          tileSize: 256,
+          attribution: '© CartoDB © OpenStreetMap contributors'
         },
-        center: [-122.335, 47.610], // Seattle coordinates
-        zoom: 11
-    });
-    return map;
+      },
+      layers: [
+        {
+          id: 'carto-base-layer',
+          type: 'raster',
+          source: 'carto-base'
+        },
+      ]
+    },
+    center: [-122.335, 47.610],
+    zoom: 11
+  });
+
+  return map;
 }
