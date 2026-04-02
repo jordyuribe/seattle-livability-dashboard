@@ -77,9 +77,9 @@ function scoreComfort(tempF) {
 }
 
 // Main scoring
-export function computeLivabilityScore({ aqi, noiseDB, greenPCT, tempF}) {
-    const enviroScore = scoreEnvionmental(aqi, noiseDB);
-    const green = scoreGreenAccess(greenPCT);
+export function computeLivabilityScore({ aqi, noiseDb, greenPct, tempF}) {
+    const enviroScore = scoreEnvionmental(aqi, noiseDb);
+    const green = scoreGreenAccess(greenPct);
     const comfort = scoreComfort(tempF);
 
     return Math.round((enviroScore * 0.40) + (green * 0.35) + (comfort * 0.25));
