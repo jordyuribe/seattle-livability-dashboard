@@ -30,7 +30,7 @@ export function showTooltip(tooltip, point, props) {
     </div>
     <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px;">
       <span style="color:#6b6b65;">Air Quality (AQI)</span>
-      <span style="font-weight:500;color:#1a1a18;">${props.aqi ?? '--'}</span>
+      <span style="font-weight:500;color:${getAQIColor(props.aqi)};">${props.aqi ?? '--'}</span>
     </div>
     <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px;">
       <span style="color:#6b6b65;">Noise Level</span>
@@ -70,5 +70,22 @@ function getScoreColor(score) {
   if (score >= 70) return '#15803d';
   if (score >= 55) return '#d97706';
   if (score >= 40) return '#f97316';
+  return '#dc2626';
+}
+
+function getAQILabel(aqi) {
+  if (!aqi && aqi !== 0) return 'No data';
+  if (aqi <= 50)  return 'Good';
+  if (aqi <= 100) return 'Moderate';
+  if (aqi <= 150) return 'Sensitive';
+  if (aqi <= 200) return 'Unhealthy';
+  return 'Hazardous';
+}
+
+function getAQIColor(aqi) {
+  if (!aqi && aqi !== 0) return '#888';
+  if (aqi <= 50)  return '#15803d';
+  if (aqi <= 100) return '#d97706';
+  if (aqi <= 150) return '#f97316';
   return '#dc2626';
 }
