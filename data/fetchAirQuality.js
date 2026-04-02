@@ -18,3 +18,41 @@ export async function fetchAirQuality() {
   const { sensors } = await response.json();
   return sensors;
 }
+
+export function aggregateSensorsByNeighborhood(sensors, neighborhoodGeoJSON) {
+  const results = {};
+
+  const sensorPoints = {
+    type: 'FeatureCollection',
+    features: sensors.map(s => ({
+      type: 'Feature',
+      properties: {
+        pm25: s['pm2.5_atm'],
+        name: s.name
+      },
+      geometry: {
+        type: 'Point',
+        coordinates: [s.longitude, s.latitude]
+      }
+    }))
+  };
+
+  neighborhoodGeoJSON.features.forEach(neighborhood => {
+    const name = neighborhood.properties.S_HOOD;
+
+    const inside = turf.pointsWithinPolygon(sensorPoints, neighborhood);
+
+    if (inside.features.length === 0) {
+      results[name] = null;
+      return;
+    }
+
+    const avgPM25 = inside.features.reduce((sum, f) => {
+      return sum + f.properties.pm25;
+    }, 0) / inside.features.length;
+
+    results[name] = avgPM25;
+  });
+
+  return results;
+}

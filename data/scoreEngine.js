@@ -23,6 +23,29 @@ function scoreAQI(aqi) {
     return 0; // hazardous
 }
 
+// Convert raw PM2.5 reading to AQI using EPA breakpoints
+export function pm25ToAQI(pm25) {
+  const val = parseFloat(pm25);
+  if (isNaN(val)) return 0;
+
+  if (val <= 12.0)  return linear(50,  0,   12.0,  0.0,  val);
+  if (val <= 35.4)  return linear(100, 51,  35.4,  12.1, val);
+  if (val <= 55.4)  return linear(150, 101, 55.4,  35.5, val);
+  if (val <= 150.4) return linear(200, 151, 150.4, 55.5, val);
+  if (val <= 250.4) return linear(300, 201, 250.4, 150.5, val);
+  if (val <= 350.4) return linear(400, 301, 350.4, 250.5, val);
+  return linear(500, 401, 500.4, 350.5, val);
+}
+
+// EPA linear interpolation formula
+function linear(aqiHigh, aqiLow, concHigh, concLow, concentration) {
+  return Math.round(
+    ((aqiHigh - aqiLow) / (concHigh - concLow)) *
+    (concentration - concLow) +
+    aqiLow
+  );
+}
+
 // noise scoring
 function scoreNoise(noise) {
     const clamped = clamp(noise, 40, 90);
