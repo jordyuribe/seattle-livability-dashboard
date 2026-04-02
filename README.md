@@ -53,10 +53,10 @@ Measures access to green space, which research consistently links to mental heal
 Pillar 3 — Comfort (25%)
 Measures general environmental comfort including temperature. Scored against an ideal comfort range of 55-70°F, with penalties increasing as temperatures deviate from that range in either direction.
 
-Citations to include:
-U.S. Environmental Protection Agency. (2022). Environmental Justice Index (EJI). Retrieved from eji.cdc.gov
-World Health Organization. (2018). Environmental Noise Guidelines for the European Region. WHO Regional Office for Europe.
-U.S. Environmental Protection Agency. Air Quality Index (AQI) Basics. Retrieved from airnow.gov
+Citations:
+- U.S. Environmental Protection Agency. (2022). Environmental Justice Index (EJI). Retrieved from eji.cdc.gov
+- World Health Organization. (2018). Environmental Noise Guidelines for the European Region. WHO Regional Office for Europe.
+- U.S. Environmental Protection Agency. Air Quality Index (AQI) Basics. Retrieved from airnow.gov
 Walk Score. Walk Score Methodology. Retrieved from walkscore.com/methodology.shtml
 
 ## Future Improvements
