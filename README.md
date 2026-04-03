@@ -117,5 +117,5 @@ Temperature was removed as a metric because it does not vary meaningfully betwee
 
 ---
 
-*Built by Jordy Uribe-Rivas · Seattle University MS Computer Science*  
+*Built by Jordy Uribe-Rivas
 *Inspired by IoT environmental monitoring networks observed in South Korea*
