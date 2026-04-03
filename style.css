@@ -104,12 +104,11 @@ header {
 }
 
 .sidebar {
-  width: 22%;
-  min-width: 260px;
-  max-width: 340px;
+  width: 320px;
   flex-shrink: 0;
   border-right: 1px solid #e0e0e0;
   overflow-y: auto;
+  height: 100%;
 }
 
 .map-wrap {
@@ -128,8 +127,6 @@ header {
   flex-direction: column;
   gap: 12px;
   padding: 14px;
-  overflow-y: auto;
-  height: 100%;
 }
 
 .sidebar-scroll::-webkit-scrollbar { width: 4px; }
