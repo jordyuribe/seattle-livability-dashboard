@@ -17,6 +17,18 @@ map.on('load', () => {
   initLayerToggles(map);
 });
 
+// Update last updated timestamp after each data refresh
+function updateLastUpdated() {
+  const el = document.getElementById('lastUpdated');
+  if (el) {
+    const now = new Date();
+    el.textContent = `Updated ${now.toLocaleTimeString('en-US', { 
+      hour: '2-digit', minute: '2-digit' 
+    })}`;
+  }
+}
+
+
 // Load neighborhood GeoJSON once — reused every refresh cycle
 const geoResponse = await fetch('./assets/seattle_neighborhoods.geojson');
 const neighborhoodGeoJSON = await geoResponse.json();
