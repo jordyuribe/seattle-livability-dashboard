@@ -73,10 +73,10 @@ export function loadChoropleth(map) {
         'circle-radius': 6,
         'circle-color': [
           'interpolate', ['linear'], ['get', 'aqi'],
-          0,   '#15803d',
-          50,  '#fbbf24',
-          100, '#f97316',
-          150, '#dc2626'
+          0,   '#7c3aed',   // purple — good
+          50,  '#a855f7',   // light purple — moderate
+          100, '#f97316',   // orange — unhealthy
+          150, '#dc2626'    // red — hazardous
         ],
         'circle-stroke-color': '#ffffff',
         'circle-stroke-width': 1.5,
@@ -85,18 +85,44 @@ export function loadChoropleth(map) {
     });
 
     // ── NOISE SENSOR LAYER ──
+    // ── NOISE SENSOR LAYER — buffer circles ──
     map.addSource('noise-points', {
       type: 'geojson',
       data: { type: 'FeatureCollection', features: [] }
     });
 
+    // Buffer fill — shows zone of influence
+    map.addLayer({
+      id: 'noise-buffer-layer',
+      type: 'circle',
+      source: 'noise-points',
+      layout: { visibility: 'none' },
+      paint: {
+        'circle-radius': [
+          'interpolate', ['linear'], ['zoom'],
+          10, 40,   // at zoom 10 — 40px radius
+          13, 80    // at zoom 13 — 80px radius
+        ],
+        'circle-color': [
+          'interpolate', ['linear'], ['get', 'db'],
+          40, '#15803d',
+          53, '#fbbf24',
+          65, '#f97316',
+          75, '#dc2626'
+        ],
+        'circle-opacity': 0.15,
+        'circle-stroke-width': 0
+      }
+    });
+
+    // Center dot — shows exact sensor location
     map.addLayer({
       id: 'noise-layer',
       type: 'circle',
       source: 'noise-points',
       layout: { visibility: 'none' },
       paint: {
-        'circle-radius': 8,
+        'circle-radius': 7,
         'circle-color': [
           'interpolate', ['linear'], ['get', 'db'],
           40, '#15803d',
@@ -105,8 +131,8 @@ export function loadChoropleth(map) {
           75, '#dc2626'
         ],
         'circle-stroke-color': '#ffffff',
-        'circle-stroke-width': 1.5,
-        'circle-opacity': 0.9
+        'circle-stroke-width': 2,
+        'circle-opacity': 1
       }
     });
 
@@ -151,6 +177,168 @@ export function loadChoropleth(map) {
     map.on('mouseleave', 'neighborhood-fill', () => {
       map.getCanvas().style.cursor = '';
       hideTooltip(tooltip);
+    });
+
+    // ── NOISE SENSOR TOOLTIPS ──
+    const noiseTooltip = document.createElement('div');
+    noiseTooltip.style.cssText = `
+      position: absolute;
+      background: white;
+      border: 0.5px solid #e8e6e0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+      z-index: 20;
+      min-width: 160px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+    `;
+    document.querySelector('.map-wrap').appendChild(noiseTooltip);
+
+    map.on('mousemove', 'noise-layer', (e) => {
+      map.getCanvas().style.cursor = 'pointer';
+      const props = e.features[0].properties;
+      const dbColor = props.db <= 53 ? '#15803d' : props.db <= 65 ? '#d97706' : '#dc2626';
+
+      noiseTooltip.innerHTML = `
+        <div style="font-size:12px;font-weight:600;color:#1a1a18;margin-bottom:6px;">
+          ${props.name}
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+          <span style="color:#6b6b65;">Noise Level</span>
+          <span style="font-weight:500;color:${dbColor};">${props.db} dB</span>
+        </div>
+        <div style="border-top:0.5px solid #e8e6e0;padding-top:6px;margin-top:4px;
+          font-size:10px;color:#a0a09a;line-height:1.4;">
+          Port of Seattle airport noise monitoring network
+        </div>
+      `;
+
+      noiseTooltip.style.left = (e.point.x + 14) + 'px';
+      noiseTooltip.style.top = (e.point.y - 20) + 'px';
+      noiseTooltip.style.opacity = '1';
+    });
+
+    map.on('mouseleave', 'noise-layer', () => {
+      map.getCanvas().style.cursor = '';
+      noiseTooltip.style.opacity = '0';
+    });
+
+    // ── AIR QUALITY SENSOR TOOLTIPS ──
+    const aqiTooltip = document.createElement('div');
+    aqiTooltip.style.cssText = `
+      position: absolute;
+      background: white;
+      border: 0.5px solid #e8e6e0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+      z-index: 20;
+      min-width: 160px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+    `;
+    document.querySelector('.map-wrap').appendChild(aqiTooltip);
+
+    map.on('mousemove', 'air-quality-layer', (e) => {
+      map.getCanvas().style.cursor = 'pointer';
+      const props = e.features[0].properties;
+      const aqiColor = props.aqi <= 50 ? '#15803d' : props.aqi <= 100 ? '#d97706' : '#dc2626';
+
+      aqiTooltip.innerHTML = `
+        <div style="font-size:12px;font-weight:600;color:#1a1a18;margin-bottom:6px;">
+          ${props.name}
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+          <span style="color:#6b6b65;">AQI</span>
+          <span style="font-weight:500;color:${aqiColor};">${props.aqi}</span>
+        </div>
+        <div style="border-top:0.5px solid #e8e6e0;padding-top:6px;margin-top:4px;
+          font-size:10px;color:#a0a09a;line-height:1.4;">
+          PurpleAir community sensor network
+        </div>
+      `;
+
+      aqiTooltip.style.left = (e.point.x + 14) + 'px';
+      aqiTooltip.style.top = (e.point.y - 20) + 'px';
+      aqiTooltip.style.opacity = '1';
+    });
+
+    map.on('mouseleave', 'air-quality-layer', () => {
+      map.getCanvas().style.cursor = '';
+      aqiTooltip.style.opacity = '0';
+    });
+
+    // ── PARK BOUNDARY LAYER ──
+    map.addSource('park-boundaries', {
+      type: 'geojson',
+      data: { type: 'FeatureCollection', features: [] }
+    });
+
+    map.addLayer({
+      id: 'park-boundary-fill',
+      type: 'fill',
+      source: 'park-boundaries',
+      layout: { visibility: 'none' },
+      paint: {
+        'fill-color': '#15803d',
+        'fill-opacity': 0.4
+      }
+    });
+
+    map.addLayer({
+      id: 'park-boundary-outline',
+      type: 'line',
+      source: 'park-boundaries',
+      layout: { visibility: 'none' },
+      paint: {
+        'line-color': '#15803d',
+        'line-width': 1
+      }
+    });
+
+    // ── PARK BOUNDARY TOOLTIPS ──
+    const parkTooltip = document.createElement('div');
+    parkTooltip.style.cssText = `
+      position: absolute;
+      background: white;
+      border: 0.5px solid #e8e6e0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+      z-index: 20;
+      min-width: 140px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+    `;
+    document.querySelector('.map-wrap').appendChild(parkTooltip);
+
+    map.on('mousemove', 'park-boundary-fill', (e) => {
+      map.getCanvas().style.cursor = 'pointer';
+      const props = e.features[0].properties;
+      parkTooltip.innerHTML = `
+        <div style="font-size:12px;font-weight:600;color:#1a1a18;margin-bottom:4px;">
+          ${props.NAME}
+        </div>
+        <div style="font-size:10px;color:#6b6b65;">Seattle Park</div>
+      `;
+      parkTooltip.style.left = (e.point.x + 14) + 'px';
+      parkTooltip.style.top = (e.point.y - 20) + 'px';
+      parkTooltip.style.opacity = '1';
+    });
+
+    map.on('mouseleave', 'park-boundary-fill', () => {
+      map.getCanvas().style.cursor = '';
+      parkTooltip.style.opacity = '0';
     });
 
   });
@@ -222,6 +410,12 @@ export function updateSensorLayers(map, sensors, noiseSensors) {
         }
       }))
     });
+  }
+}
+
+export function updateParkBoundaries(map, parkBoundaries) {
+  if (map.getSource('park-boundaries') && parkBoundaries) {
+    map.getSource('park-boundaries').setData(parkBoundaries);
   }
 }
 

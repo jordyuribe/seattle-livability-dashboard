@@ -288,4 +288,74 @@ header {
 
 .alert-item strong { font-weight: 600; }
 
+/* ── MAP LEGEND ── */
+.map-legend {
+  position: absolute;
+  bottom: 28px;
+  left: 14px;
+  background: white;
+  border: 0.5px solid #e8e6e0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  z-index: 10;
+  min-width: 160px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.legend-title {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #6b6b65;
+  margin-bottom: 8px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.legend-gradient {
+  height: 8px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+.legend-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: #a0a09a;
+  font-family: 'DM Mono', monospace;
+}
+
+.legend-dots {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.legend-dot-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  color: #444;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1.5px solid white;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+}
+
+.legend-section {
+  transition: opacity 0.2s;
+}
+
+.legend-section:last-child {
+  margin-bottom: 0 !important;
+}
+
 

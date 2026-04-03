@@ -2,10 +2,10 @@ import { initMap } from "./map/mapInit.js";
 import { fetchAirQuality, aggregateSensorsByNeighborhood } from './data/fetchAirQuality.js';
 import { pm25ToAQI, computeLivabilityScore } from './data/scoreEngine.js';
 import { updateSidebar } from './components/sidebar.js';
-import { fetchGreenSpace, aggregateParksByNeighborhood } from './data/fetchGreenSpaces.js';
+import { fetchGreenSpace, fetchParkBoundaries, aggregateParksByNeighborhood } from './data/fetchGreenSpaces.js';
 import { fetchNoise, aggregateNoiseByNeighborhood } from './data/fetchNoise.js';
 import { initLayerToggles } from './map/layers.js';
-import { loadChoropleth, updateChoropleth, updateSensorLayers } from './map/choropleth.js';
+import { loadChoropleth, updateChoropleth, updateSensorLayers, updateParkBoundaries } from './map/choropleth.js';
 
 
 const map = initMap();
@@ -27,10 +27,11 @@ async function refreshData() {
   // Step 1 — fetch air quality sensors and park locations in parallel
   // Promise.all fires both requests simultaneously instead of one at a time
   // this cuts load time roughly in half since they are independent of each other
-  const [sensors, parksGeoJSON, noiseSensors] = await Promise.all([
+  const [sensors, parksGeoJSON, noiseSensors, parkBoundaries] = await Promise.all([
     fetchAirQuality(),
     fetchGreenSpace(),
-    fetchNoise()
+    fetchNoise(),
+    fetchParkBoundaries()
   ]);
 
   // Step 2 — aggregate PurpleAir sensors into one PM2.5 value per neighborhood
@@ -91,6 +92,7 @@ async function refreshData() {
   updateChoropleth(map, scores);
   updateSidebar(scores);  
   updateSensorLayers(map, sensors, noiseSensors);
+  updateParkBoundaries(map, parkBoundaries);
 }
 
 // Run immediately on page load then refresh every 5 minutes

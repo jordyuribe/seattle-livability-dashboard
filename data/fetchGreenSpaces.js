@@ -61,3 +61,40 @@ export function aggregateParksByNeighborhood(parksGeoJSON, neighborhoodGeoJSON) 
 
   return results;
 }
+
+// Fetches park boundary polygons from Seattle ArcGIS REST API
+// Returns GeoJSON FeatureCollection with real park shapes in WGS84
+export async function fetchParkBoundaries() {
+  const baseUrl = 'https://services.arcgis.com/ZOyb2t4B0UYuYNYH/arcgis/rest/services/Park_Boundaries/FeatureServer/2/query';
+  const params = 'where=1%3D1&outFields=NAME&outSR=4326&f=geojson';
+  
+  let allFeatures = [];
+  let offset = 0;
+  const limit = 1000;
+
+  // Paginate through all parks
+  while (true) {
+    const response = await fetch(
+      `${baseUrl}?${params}&resultRecordCount=${limit}&resultOffset=${offset}`
+    );
+
+    if (!response.ok) {
+      throw new Error(`Park boundary fetch failed: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    if (!data.features || data.features.length === 0) break;
+
+    allFeatures = allFeatures.concat(data.features);
+    offset += limit;
+
+    // Stop if we got fewer than the limit — means we're done
+    if (data.features.length < limit) break;
+  }
+
+  return {
+    type: 'FeatureCollection',
+    features: allFeatures
+  };
+}
