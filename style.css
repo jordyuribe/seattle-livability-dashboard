@@ -104,10 +104,12 @@ header {
 }
 
 .sidebar {
-    width: 340px;
-    flex-shrink: 0;
-    border-right: 1px solid #e0e0e0;
-    overflow-y: auto;
+  width: 22%;
+  min-width: 260px;
+  max-width: 340px;
+  flex-shrink: 0;
+  border-right: 1px solid #e0e0e0;
+  overflow-y: auto;
 }
 
 .map-wrap {
