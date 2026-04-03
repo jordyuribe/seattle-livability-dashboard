@@ -11,6 +11,7 @@ import { loadChoropleth, updateChoropleth, updateSensorLayers, updateParkBoundar
 const map = initMap();
 loadChoropleth(map);
 
+
 // Wait for map to load before initializing toggles
 map.on('load', () => {
   initLayerToggles(map);
@@ -90,9 +91,10 @@ async function refreshData() {
 
   // Step 5 — push updated scores to the map and sidebar
   updateChoropleth(map, scores);
-  updateSidebar(scores);  
+  updateSidebar(scores);
   updateSensorLayers(map, sensors, noiseSensors);
   updateParkBoundaries(map, parkBoundaries);
+  updateLastUpdated();
 }
 
 // Run immediately on page load then refresh every 5 minutes

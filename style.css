@@ -26,6 +26,77 @@ header {
     flex: 1;
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  background: #1a4a42;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logo-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1a1a18;
+  letter-spacing: -0.2px;
+}
+
+.logo-text span {
+  color: #2a7d6f;
+}
+
+.header-divider {
+  width: 1px;
+  height: 24px;
+  background: #e0e0e0;
+  flex-shrink: 0;
+}
+
+.header-meta {
+  font-size: 11px;
+  color: #a0a09a;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.04em;
+}
+
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #2a7d6f;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2a7d6f;
+  animation: pulse 2s infinite;
+}
+
+.last-updated {
+  font-size: 11px;
+  color: #a0a09a;
+  font-family: 'DM Sans', sans-serif;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
 .main {
     flex: 1;
     display: flex;
@@ -358,4 +429,64 @@ header {
   margin-bottom: 0 !important;
 }
 
+.legend-section.inactive {
+  margin-bottom: 4px;
+}
+
+.legend-section {
+  margin-bottom: 10px;
+}
+
+.legend-section:last-child {
+  margin-bottom: 0;
+}
+
+/* ── DATA SOURCES ── */
+.source-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.source-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.source-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.source-info {
+  flex: 1;
+}
+
+.source-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: #1a1a18;
+}
+
+.source-desc {
+  font-size: 10px;
+  color: #a0a09a;
+  margin-top: 1px;
+}
+
+.source-badge {
+  font-size: 9px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.source-badge.good {
+  background: #dcfce7;
+  color: #15803d;
+}
 

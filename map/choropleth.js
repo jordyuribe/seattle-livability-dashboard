@@ -25,39 +25,38 @@ export function loadChoropleth(map) {
       type: 'fill',
       source: 'neighborhoods',
       paint: {
-        'fill-color': [
-          'case',
-          // If no score data, show gray
-          ['==', ['get', 'livability_score'], null],
-         '#cccccc',
-          ['!', ['has', 'livability_score']],
-          '#cccccc',
-          // Otherwise interpolate color based on score
-          [
-            'interpolate', ['linear'],
-            ['get', 'livability_score'],
-            0,  '#dc2626',   // red — poor
-            40, '#f97316',   // orange
-            55, '#fbbf24',   // amber
-            70, '#4ade80',   // light green
-            90, '#15803d'    // dark green — excellent
-          ]
-        ],
+      'fill-color': [
+        'case',
+        ['==', ['get', 'livability_score'], null],
+        '#e8f4f1',  // light teal — no data, not gray
+        ['!', ['has', 'livability_score']],
+        '#e8f4f1',
+        [
+          'interpolate', ['linear'],
+          ['get', 'livability_score'],
+          0,  '#dc2626',
+          40, '#f97316',
+          55, '#fbbf24',
+          70, '#4ade80',
+          90, '#15803d'
+        ]
+      ],
         'fill-opacity': 0.6
       }
     });
 
     // White outlines between neighborhoods
+    // Also update the outline layer
     map.addLayer({
       id: 'neighborhood-outline',
       type: 'line',
       source: 'neighborhoods',
       paint: {
         'line-color': '#ffffff',
-        'line-width': 1.5
+        'line-width': 1.5,
+        'line-opacity': 0.8
       }
     });
-
     // ── AIR QUALITY SENSOR LAYER ──
     map.addSource('air-quality-points', {
       type: 'geojson',
