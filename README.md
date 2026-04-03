@@ -2,11 +2,11 @@
 
 A real-time environmental dashboard that tracks air quality, noise levels, and green space across Seattle neighborhoods and combines them into a single livability score displayed on an interactive choropleth map.
 
-![Dashboard Screenshot](assets/screenshot.png)
+
 
 ## Overview
 
-I built this dashboard to surface environmental data that affects people's daily lives in Seattle but isn't easy to see in one place. Inspired by IoT sensor networks I saw in South Korea, I wanted to create something that shows not just raw data but what it means — which neighborhoods are more exposed to pollution, noise, and lack of green space, and how that shapes livability across the city.
+I built this dashboard to surface environmental data that affects people's daily lives in Seattle but isn't easy to see in one place. Inspired by IoT sensor networks I saw in South Korea, I wanted to create something that shows not just raw data but show which neighborhoods are more exposed to pollution, noise, and lack of green space, and how that shapes livability across the city.
 
 The dashboard pulls from three live APIs, aggregates sensor readings by neighborhood using geospatial analysis, and computes a weighted livability score per neighborhood based on EPA and WHO environmental health thresholds.
 
