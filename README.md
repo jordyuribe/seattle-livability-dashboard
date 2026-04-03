@@ -16,7 +16,7 @@ The dashboard pulls from three live APIs, aggregates sensor readings by neighbor
 - Interactive choropleth map showing livability scores by neighborhood updated every 5 minutes
 - Noise monitoring using Port of Seattle's SEA-TAC airport sensor network with distance decay interpolation
 - Park boundary visualization from Seattle Open Data showing actual green space coverage
-- Weighted three-pillar scoring algorithm grounded in EPA and WHO methodology
+- Weighted two-pillar scoring algorithm grounded in EPA and WHO methodology
 - Layer toggles for air quality, noise, and green space overlays with independent legends
 - Hover tooltips showing per-neighborhood AQI, noise, green coverage, and livability score
 - Active alerts when neighborhoods breach EPA or WHO health thresholds
