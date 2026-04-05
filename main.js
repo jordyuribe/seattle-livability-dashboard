@@ -22,8 +22,8 @@ function updateLastUpdated() {
   const el = document.getElementById('lastUpdated');
   if (el) {
     const now = new Date();
-    el.textContent = `Updated ${now.toLocaleTimeString('en-US', { 
-      hour: '2-digit', minute: '2-digit' 
+    el.textContent = `Updated ${now.toLocaleTimeString('en-US', {
+      hour: '2-digit', minute: '2-digit'
     })}`;
   }
 }
@@ -92,13 +92,13 @@ async function refreshData() {
     });
 
     // Store all values so sidebar and tooltip can display them
-    scores[name] = { 
-      aqi, 
-      score, 
-      greenPct, 
+    scores[name] = {
+      aqi,
+      score,
+      greenPct,
       noiseDb,
       noiseInterpolated: noiseData ? noiseData.interpolated : true
-    };  
+    };
   });
 
   // Step 5 — push updated scores to the map and sidebar
