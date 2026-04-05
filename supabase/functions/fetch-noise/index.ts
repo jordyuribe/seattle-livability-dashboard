@@ -15,13 +15,17 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const response = await fetch(
-      `https://app2.symphonycdm.com/MobileVueProxy/getNoiseData?token=${NOISE_TOKEN}`
-    );
+      const response = await fetch(
+        `https://app2.symphonycdm.com/MobileVueProxy/getNoiseData?token=${NOISE_TOKEN}`
+      );
 
-    if (!response.ok) {
-      throw new Error(`Noise API error: ${response.status}`);
-    }
+      console.log('Status:', response.status);
+      const text = await response.text();
+      console.log('Response:', text.substring(0, 500));
+
+      if (!response.ok) {
+        throw new Error(`Noise API error: ${response.status}`);
+      }
 
     const raw = await response.json();
 
