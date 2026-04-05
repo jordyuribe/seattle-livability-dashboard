@@ -15,28 +15,21 @@ Deno.serve(async (req) => {
   }
 
   try {
-      const response = await fetch(
-        `https://app2.symphonycdm.com/MobileVueProxy/getNoiseData?token=${NOISE_TOKEN}`
-      );
+    const response = await fetch(
+      `https://app2.symphonycdm.com/MobileVueProxy/getNoiseData?token=${NOISE_TOKEN}`
+    );
 
-      console.log('Status:', response.status);
-      const text = await response.text();
-      console.log('Response:', text.substring(0, 500));
-
-      if (!response.ok) {
-        throw new Error(`Noise API error: ${response.status}`);
-      }
+    if (!response.ok) {
+      throw new Error(`Noise API error: ${response.status}`);
+    }
 
     const raw = await response.json();
 
-    // Extract sensors from the nested structure
-    // Filter out offline sensors (Db of -1)
     const sensors = raw.Systems[0].Sites
       .filter((s: any) => s.Db > 0)
       .map((s: any) => ({
         id: s.Id,
         name: s.Name,
-        // API returns [lat, lng] — convert to GeoJSON [lng, lat]
         latitude: s.Location[0],
         longitude: s.Location[1],
         db: s.Db
