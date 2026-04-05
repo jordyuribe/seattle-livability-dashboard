@@ -43,29 +43,12 @@ async function refreshData() {
   let noiseSensors = null;
   let parkBoundaries = null;
 
-  try {
-    [sensors, parksGeoJSON, noiseSensors, parkBoundaries] = await Promise.all([
-      fetchAirQuality(),
-      fetchGreenSpace(),
-      fetchNoise(),
-      fetchParkBoundaries()
-    ]);
-  } catch (err) {
-    // If any single source fails try them individually
-    console.warn('Parallel fetch failed, trying individually:', err.message);
-
-    try { sensors = await fetchAirQuality(); }
-    catch (e) { console.warn('Air quality unavailable:', e.message); }
-
-    try { parksGeoJSON = await fetchGreenSpace(); }
-    catch (e) { console.warn('Green space unavailable:', e.message); }
-
-    try { noiseSensors = await fetchNoise(); }
-    catch (e) { console.warn('Noise unavailable:', e.message); }
-
-    try { parkBoundaries = await fetchParkBoundaries(); }
-    catch (e) { console.warn('Park boundaries unavailable:', e.message); }
-  }
+  [sensors, parksGeoJSON, noiseSensors, parkBoundaries] = await Promise.all([
+    fetchAirQuality(),
+    fetchGreenSpace(),
+    fetchNoise(),
+    fetchParkBoundaries()
+  ]);
 
   const pm25ByNeighborhood = sensors
     ? aggregateSensorsByNeighborhood(sensors, neighborhoodGeoJSON)
