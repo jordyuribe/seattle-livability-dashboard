@@ -18,7 +18,7 @@ const corsHeaders = {
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
 };
 
-const CACHE_DURATION_MINUTES = 30;
+const CACHE_DURATION_MINUTES = 60;
 
 Deno.serve(async (req) => {
 
@@ -51,7 +51,7 @@ Deno.serve(async (req) => {
 
     // Fetch fresh data from PurpleAir
     const url = new URL('https://api.purpleair.com/v1/sensors');
-    url.searchParams.set('fields', 'name,latitude,longitude,pm2.5_atm,pm2.5_atm_a,pm2.5_atm_b');
+    url.searchParams.set('fields', 'name,latitude,longitude,pm2.5_atm');
     url.searchParams.set('nwlng', SEATTLE_BOUNDS.nwLng.toString());
     url.searchParams.set('nwlat', SEATTLE_BOUNDS.nwLat.toString());
     url.searchParams.set('selng', SEATTLE_BOUNDS.seLng.toString());
