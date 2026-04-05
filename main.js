@@ -112,4 +112,4 @@ async function refreshData() {
 // Run immediately on page load then refresh every 5 minutes
 // 5 * 60 * 1000 = 5 minutes in milliseconds
 refreshData();
-setInterval(refreshData, 5 * 60 * 1000);
+setInterval(refreshData, 30 * 60 * 1000);
