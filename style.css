@@ -98,16 +98,20 @@ header {
 }
 
 .main {
-    flex: 1;
-    display: flex;
-    overflow: hidden;
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  min-height: 0;
 }
 
 .sidebar {
-    width: 340px;
-    flex-shrink: 0;
-    border-right: 1px solid #e0e0e0;
-    overflow-y: auto;
+  width: 320px;
+  min-width: 320px;
+  flex-shrink: 0;
+  border-right: 1px solid #e0e0e0;
+  overflow-y: auto;
+  min-height: 0;
+  max-height: 100%;
 }
 
 .map-wrap {
@@ -126,8 +130,6 @@ header {
   flex-direction: column;
   gap: 12px;
   padding: 14px;
-  overflow-y: auto;
-  height: 100%;
 }
 
 .sidebar-scroll::-webkit-scrollbar { width: 4px; }

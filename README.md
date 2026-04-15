@@ -2,11 +2,11 @@
 
 A real-time environmental dashboard that tracks air quality, noise levels, and green space across Seattle neighborhoods and combines them into a single livability score displayed on an interactive choropleth map.
 
-![Dashboard Screenshot](assets/screenshot.png)
+
 
 ## Overview
 
-I built this dashboard to surface environmental data that affects people's daily lives in Seattle but isn't easy to see in one place. Inspired by IoT sensor networks I saw in South Korea, I wanted to create something that shows not just raw data but what it means — which neighborhoods are more exposed to pollution, noise, and lack of green space, and how that shapes livability across the city.
+I built this dashboard to surface environmental data that affects people's daily lives in Seattle but isn't easy to see in one place. Inspired by IoT sensor networks I saw in South Korea, I wanted to create something that shows not just raw data but show which neighborhoods are more exposed to pollution, noise, and lack of green space, and how that shapes livability across the city.
 
 The dashboard pulls from three live APIs, aggregates sensor readings by neighborhood using geospatial analysis, and computes a weighted livability score per neighborhood based on EPA and WHO environmental health thresholds.
 
@@ -16,7 +16,7 @@ The dashboard pulls from three live APIs, aggregates sensor readings by neighbor
 - Interactive choropleth map showing livability scores by neighborhood updated every 5 minutes
 - Noise monitoring using Port of Seattle's SEA-TAC airport sensor network with distance decay interpolation
 - Park boundary visualization from Seattle Open Data showing actual green space coverage
-- Weighted three-pillar scoring algorithm grounded in EPA and WHO methodology
+- Weighted two-pillar scoring algorithm grounded in EPA and WHO methodology
 - Layer toggles for air quality, noise, and green space overlays with independent legends
 - Hover tooltips showing per-neighborhood AQI, noise, green coverage, and livability score
 - Active alerts when neighborhoods breach EPA or WHO health thresholds
@@ -117,5 +117,5 @@ Temperature was removed as a metric because it does not vary meaningfully betwee
 
 ---
 
-*Built by Jordy Uribe-Rivas · Seattle University MS Computer Science*  
+*Built by Jordy Uribe-Rivas
 *Inspired by IoT environmental monitoring networks observed in South Korea*
