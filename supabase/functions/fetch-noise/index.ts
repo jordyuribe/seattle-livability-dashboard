@@ -1,6 +1,6 @@
 import "@supabase/functions-js/edge-runtime.d.ts"
 
-const NOISE_TOKEN = 'f190142ff7e0255e703c5444dc8ec140';
+const NOISE_TOKEN = '26799f4d4fdd9402d48c95c48df25cb8';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
